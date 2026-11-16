@@ -19,6 +19,8 @@
   <meta property="og:image:alt" content="María Natalia Pujol, Magíster en Salud Pública e investigadora">
   <meta name="twitter:card" content="summary_large_image">
   
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#523a34">
   <link rel="stylesheet" href="styles.css">
   
   <script type="application/ld+json">
@@ -209,7 +211,8 @@
             <label for="mensaje">Mensaje</label>
             <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
           </div>
-          <button class="btn btn-light" type="submit">Enviar consulta</button>
+          <button class="btn btn-light" type="submit" data-submit>Enviar consulta</button>
+          <p class="form-note" role="status" aria-live="polite" hidden>Enviando la consulta…</p>
         </form>
 
         <p class="contact-direct">
@@ -227,5 +230,14 @@
       <p class="trust-signals">Ciudad Autónoma de Buenos Aires, Argentina. Sitio adecuado a la Ley N.º 25.326 de Protección de Datos Personales. (MN: A completar | MP: A completar)</p>
     </div>
   </footer>
+  <script>
+    document.querySelector('form')?.addEventListener('submit', function (e) {
+      if (!e.target.checkValidity()) return;
+      var b = e.target.querySelector('[data-submit]');
+      var n = e.target.querySelector('.form-note');
+      if (b) { b.disabled = true; b.setAttribute('aria-disabled', 'true'); b.textContent = 'Enviando…'; }
+      if (n) { n.hidden = false; }
+    });
+  </script>
 </body>
 </html>
